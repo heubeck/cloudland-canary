@@ -16,6 +16,6 @@ spec:
   interval: 1m
   values:
     configuration:
-      ECHO_VALUE: Go Flagger go!
+      ECHO_VALUE: 🚶Bitte geh'n Sie weiter, hier gibt es nichts zu sehn. 🕺
     canary:
-      enabled: true
+      enabled: false

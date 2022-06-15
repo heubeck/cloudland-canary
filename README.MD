@@ -1,3 +1,5 @@
+![Title](_img/title.png)
+
 # Automated Canary Deployment Example
 
 Setup uses:
@@ -6,7 +8,9 @@ Setup uses:
 * **FluxCD** and a **GitHub** repository for managing the cluster
 * **Linkerd** service mesh for traffic management and observibility
 * **Flagger** for reliable releasing
-* **Prometheus** because there's no reason to not use it
+* **Prometheus** because there's no reason for not using it
+* **hey** to get some traffic
+* **𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗** just another simple test app
 
 ## Setup
 
@@ -60,6 +64,10 @@ The linkerd cli is not mandatory, but eases access to its dashboard and helps wi
 * [Install linkerd cli](https://linkerd.io/2.11/getting-started/#step-1-install-the-cli)
 * [Install linkerd smi extension](https://linkerd.io/2.11/tasks/linkerd-smi/)
 
+### hey
+
+[hey](https://github.com/rakyll/hey) is a simple but efficient load producer.
+
 ### Access components
 
 * [Examiner](https://github.com/heubeck/examiner) - Bound to ingress: GET http://localhost/examine
@@ -85,6 +93,21 @@ The following steps will demonstrate the example setup.
 ```shell
 kubectl  get deployment -A
 ```
+
+### View the linkerd dashboard
+
+```shell
+# Creates some port-forwards and blocks, run in a separate shell
+linkerd viz dashboard
+```
+
+### Let some requests flow
+
+```shell
+hey -c 5 -q 5 -z 5m "http://localhost/examine?delay=100..250"
+```
+
+And explore the linkerd dashboard.
 
 ## Cleanup
 
