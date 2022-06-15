@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: examiner
+  namespace: apps
+spec:
+  releaseName: examiner
+  chart:
+    spec:
+      chart: ./charts/examiner
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  interval: 1m
+  values:
+    configuration:
+      ECHO_VALUE: Go Flagger go!
+    canary:
+      enabled: true

@@ -1,0 +1,41 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: infrastructure-layer-2
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure-layer-1
+  interval: 1m0s
+  path: ./cluster/infrastructure-layer-2
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  prune: true
+  timeout: 5m
+  validation: client
+  healthChecks:
+    # ingress
+    - kind: Deployment
+      name: ingress-nginx-controller
+      namespace: ingress
+    # linkerd
+    - kind: Deployment
+      name: smi-adaptor
+      namespace: linkerd-smi
+    - kind: Deployment
+      name: metrics-api
+      namespace: linkerd-viz
+    - kind: Deployment
+      name: prometheus
+      namespace: linkerd-viz
+    - kind: Deployment
+      name: tap
+      namespace: linkerd-viz
+    - kind: Deployment
+      name: tap-injector
+      namespace: linkerd-viz
+    - kind: Deployment
+      name: web
+      namespace: linkerd-viz

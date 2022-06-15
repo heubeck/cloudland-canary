@@ -1,0 +1,16 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: logger
+  namespace: flagger
+spec:
+  releaseName: logger
+  chart:
+    spec:
+      chart: ./charts/examiner
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  interval: 1m

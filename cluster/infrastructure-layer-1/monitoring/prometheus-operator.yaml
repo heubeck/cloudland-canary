@@ -1,0 +1,61 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: prometheus-community
+  namespace: monitoring
+spec:
+  interval: 15m
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-operator
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "36.0.1"
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: monitoring
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    coreDns:
+      enabled: false
+    kubeDns:
+      enabled: false
+    defaultRules:
+      rules:
+        etcd: false
+        kubeScheduler: false
+        time: false
+        kubernetesResources: false
+        kubelet: false
+        kubeProxy: false
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubelet:
+      enabled: false
+    prometheus:
+      prometheusSpec:
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+    alertmanager:
+      enabled: false
+    grafana:
+      enabled: false

@@ -1,0 +1,30 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: infrastructure-layer-1
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./cluster/infrastructure-layer-1
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  prune: true
+  timeout: 15m
+  validation: client
+  healthChecks:
+    # monitoring
+    - kind: Deployment
+      name: prometheus-operator-kube-p-operator
+      namespace: monitoring
+    # linkerd
+    - kind: Deployment
+      name: linkerd-destination
+      namespace: linkerd
+    - kind: Deployment
+      name: linkerd-identity
+      namespace: linkerd
+    - kind: Deployment
+      name: linkerd-proxy-injector
+      namespace: linkerd

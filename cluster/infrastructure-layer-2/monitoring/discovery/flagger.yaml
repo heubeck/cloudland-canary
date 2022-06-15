@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: flagger
+  namespace: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+    - flagger
+  podMetricsEndpoints:
+  - interval: 15s
+    path: /metrics
+    port: http
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: flagger
+      app.kubernetes.io/name: flagger
