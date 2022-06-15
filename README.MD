@@ -74,11 +74,17 @@ The linkerd cli is not mandatory, but eases access to its dashboard and helps wi
 
 ### Enhanced setup for automated canary deployments
 
+![Canary Setup](_img/Flaggerfull.png)
+
 ## Walkthrough
 
 The following steps will demonstrate the example setup.
 
-![Canary Setup](_img/Flaggerfull.png)
+### Look what we got
+
+```shell
+kubectl  get deployment -A
+```
 
 ## Cleanup
 

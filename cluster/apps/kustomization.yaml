@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - examiner.yaml
-- logger.yaml
 - ingress.yaml
