@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - discovery
+  - logger.yaml
 configMapGenerator:
   - name: flux-grafana-dashboards
     namespace: monitoring
