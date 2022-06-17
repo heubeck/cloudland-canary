@@ -221,7 +221,7 @@ Commit and push the change for taking effect.
 ### Flagger duplicates the deployment and its dependencies like ConfigMaps, secrets or HPA
 
 ```shell
-### our placed deployment is inactive, the copy ("-primary) took over
+### our placed deployment is inactive, the copy ("-primary") took over
 # NAME               READY   UP-TO-DATE   AVAILABLE   AGE
 # examiner           0/0     0            0           115m
 # examiner-primary   1/1     1            1           3m56s
@@ -274,11 +274,11 @@ Commit and push the change.
 
 ### Produce some error rate
 
-In another shell, produce some load that results in http 500s:
+After the deployment has started, produce some load that results in http 500s:
 
 ```shell
-# Instruct the examiner to respond with http 500 over the next 90 seconds
-hey -c 2 -q 2 -z 90s "http://localhost/examine?delay=100..500&status=500"
+# Instruct the examiner to respond with http 500 over the next 4 minutes
+hey -c 2 -q 2 -z 4m "http://localhost/examine?delay=100..500&status=500"
 ```
 
 ### Observe what happens
@@ -290,7 +290,27 @@ Have a look into the Flagger event notification for our deployment:
 ```shell
 # stream logs of the pod where Flagger is configured to send all events about or canary resource to
 kubectl logs -f -n monitoring -l app.kubernetes.io/name=logger
+
+### Output shows the begin of the deployment, the detected error rate and the abort of the deployment:
+# {"name":"examiner","namespace":"apps","phase":"Initializing","metadata":{"eventMessage":"Initialization done! examiner.apps","eventType":"Normal","timestamp":"1655463741340"}}
+# {"name":"examiner","namespace":"apps","phase":"Progressing","metadata":{"eventMessage":"New revision detected! Scaling up examiner.apps","eventType":"Normal","timestamp":"1655464101281"}}
+# {"name":"examiner","namespace":"apps","phase":"Progressing","metadata":{"eventMessage":"Advance examiner.apps canary weight 5","eventType":"Normal","timestamp":"1655464131283"}}
+#
+# {"name":"examiner","namespace":"apps","phase":"Progressing","metadata":{"eventMessage":"Halt examiner.apps advancement success rate 91.60% \u003c 99%","eventType":"Warning","timestamp":"1655464191265"
+# }}
+# ...
+# {"name":"examiner","namespace":"apps","phase":"Progressing","metadata":{"eventMessage":"Rolling back examiner.apps failed checks threshold reached 5","eventType":"Warning","timestamp":"1655464371265"}}
+# {"name":"examiner","namespace":"apps","phase":"Failed","metadata":{"eventMessage":"Canary failed! Scaling down examiner.apps","eventType":"Warning","timestamp":"1655464371280"}}
 ```
+
+### There's more to discover
+
+* Custom metric templates
+* Flagger alerts
+* Canary Webhooks
+* Automated loadtesting for low traffic environments
+* Comparison of the performance of primary and canary deployment
+* Better resource utilization and even smoother 'handover' by traffic shift up to 100% and appropriate HPA settings
 
 ## Cleanup
 
