@@ -281,6 +281,10 @@ In another shell, produce some load that results in http 500s:
 hey -c 2 -q 2 -z 90s "http://localhost/examine?delay=100..500&status=500"
 ```
 
+### Observe what happens
+
+See the error rates in the linkerd dashboard. (Ignore the error rate on the -primary deployment, as this is a side effect of our load-test setup)
+
 ## Cleanup
 
 ```shell

@@ -16,6 +16,9 @@ spec:
   timeout: 5m
   validation: client
   healthChecks:
+    - kind: Deployment
+      name: logger
+      namespace: monitoring
     # ingress
     - kind: Deployment
       name: ingress-nginx-controller
