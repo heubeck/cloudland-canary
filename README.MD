@@ -258,6 +258,29 @@ Explore the linkerd dashboard to see the effect.
 Modify the [examiner HelmRelease](cluster/apps/examiner.yaml) again with some new ECHO_VALUE configuration.
 Commit and push the change.
 
+### View the magic happen
+
+Look at the linkerd dashboard:
+* Deployments in *apps* namespace
+* Traffic Splits
+* Ingress pod visualization
+
+And the Grafana board: "Linkerd Namespace" for *apps*
+
+### Start another deployment
+
+Modify the [examiner HelmRelease](cluster/apps/examiner.yaml) again with some new ECHO_VALUE configuration.
+Commit and push the change.
+
+### Produce some error rate
+
+In another shell, produce some load that results in http 500s:
+
+```shell
+# Instruct the examiner to respond with http 500 over the next 90 seconds
+hey -c 2 -q 2 -z 90s "http://localhost/examine?delay=100..500&status=500"
+```
+
 ## Cleanup
 
 ```shell

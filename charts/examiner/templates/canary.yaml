@@ -31,7 +31,7 @@ spec:
     webhooks:
       - name: "Event Log"
         type: event
-        url: http://logger.flagger
+        url: http://logger.monitoring
     # schedule interval (default 60s)
     interval: 30s
     # canary increment step
