@@ -27,8 +27,25 @@ The following is expected to be executed within there.
 
 ```shell
 # Create new cluster and configure kubectl
+# depending on your system setup you may need to run the kind commands als privileged user or with `sudo`
 kind create cluster --config ./_kind/config.yaml --image=kindest/node:v1.24.0
 kind export kubeconfig --kubeconfig $HOME/.kube/config
+
+### Output will be something like:
+# Creating cluster "kind" ...
+#  ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+#  ✓ Preparing nodes 📦
+#  ✓ Writing configuration 📜
+#  ✓ Starting control-plane 🕹️
+#  ✓ Installing CNI 🔌
+#  ✓ Installing StorageClass 💾
+# Set kubectl context to "kind-kind"
+# You can now use your cluster with:
+#
+# kubectl cluster-info --context kind-kind
+#
+# Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+# Set kubectl context to "kind-kind"
 ```
 
 ### Flux
@@ -47,6 +64,26 @@ flux bootstrap github \
   --personal=true \
   --path=bootstrap \
   --branch=main
+
+### Output (shrinked):
+# ► connecting to github.com
+# ► cloning branch "main" from Git repository "https://github.com/heubeck/cloudland-canary.git"
+# ✔ cloned repository
+# ► generating component manifests
+# ✔ generated component manifests
+# ✔ component manifests are up to date
+# ► installing components in "flux-system" namespace
+# ✔ installed components
+# ✔ reconciled components
+#  ...
+# ◎ waiting for Kustomization "flux-system/flux-system" to be reconciled
+# ✔ Kustomization reconciled successfully
+# ► confirming components are healthy
+# ✔ helm-controller: deployment ready
+# ✔ kustomize-controller: deployment ready
+# ✔ notification-controller: deployment ready
+# ✔ source-controller: deployment ready
+# ✔ all components are healthy
 ```
 
 The bootstrap command may vary on a different constellation, like with an organization or non-public repostory. Please check the Flux documentation.
@@ -54,7 +91,15 @@ The bootstrap command may vary on a different constellation, like with an organi
 It will last some minutes for the cluster components to become ready. You can check for completion and validate the setup by looking into Flux' Kustomization resources:
 
 ```shell
+# We are ready to go as soon as all listed kustomization resources are `READY`
 kubectl get kustomization -A
+
+### Output as soon as everything is ready:
+# NAMESPACE     NAME                     AGE   READY   STATUS
+# flux-system   apps                     81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
+# flux-system   flux-system              81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
+# flux-system   infrastructure-layer-1   81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
+# flux-system   infrastructure-layer-2   81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
 ```
 
 ### Linkerd
@@ -92,6 +137,30 @@ The following steps will demonstrate the example setup.
 
 ```shell
 kubectl  get deployment -A
+
+### Output:
+# NAMESPACE            NAME                                     READY   UP-TO-DATE   AVAILABLE   AGE
+# apps                 examiner                                 1/1     1            1           83m
+# flagger              flagger                                  1/1     1            1           87m
+# flux-system          helm-controller                          1/1     1            1           87m
+# flux-system          kustomize-controller                     1/1     1            1           87m
+# flux-system          notification-controller                  1/1     1            1           87m
+# flux-system          source-controller                        1/1     1            1           87m
+# ingress              ingress-nginx-controller                 1/1     1            1           84m
+# kube-system          coredns                                  2/2     2            2           88m
+# linkerd-smi          smi-adaptor                              1/1     1            1           84m
+# linkerd-viz          grafana                                  1/1     1            1           84m
+# linkerd-viz          metrics-api                              1/1     1            1           84m
+# linkerd-viz          prometheus                               1/1     1            1           84m
+# linkerd-viz          tap                                      1/1     1            1           84m
+# linkerd-viz          tap-injector                             1/1     1            1           84m
+# linkerd-viz          web                                      1/1     1            1           84m
+# linkerd              linkerd-destination                      1/1     1            1           87m
+# linkerd              linkerd-identity                         1/1     1            1           87m
+# linkerd              linkerd-proxy-injector                   1/1     1            1           87m
+# local-path-storage   local-path-provisioner                   1/1     1            1           88m
+# monitoring           prometheus-operator-kube-p-operator      1/1     1            1           86m
+# monitoring           prometheus-operator-kube-state-metrics   1/1     1            1           86m
 ```
 
 ### View the linkerd dashboard
@@ -104,10 +173,17 @@ linkerd viz dashboard
 ### Let some requests flow
 
 ```shell
-hey -c 5 -q 5 -z 5m "http://localhost/examine?delay=100..250"
+# GET requests: 5 concurrently (-c), with a quote limit of 5 op/s (-q) over the next 60 minutes (-z)
+# The 𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗 will respond with a random delay between 100 and 250 milliseconds for simulating some real processing
+hey -c 5 -q 5 -z 60m "http://localhost/examine?delay=100..250"
 ```
 
-And explore the linkerd dashboard.
+Explore the linkerd dashboard, look into the Grafana boards provided by linkerd.
+
+### Ordinary rolling release of new version
+
+Modify the [examiner HelmRelease](cluster/apps/examiner.yaml) with some new configuration.
+Commit and push the change for triggering the deployment.
 
 ## Cleanup
 

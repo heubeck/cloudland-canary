@@ -12,9 +12,4 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: acme
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: flagger
