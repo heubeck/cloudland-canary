@@ -18,4 +18,4 @@ spec:
     configuration:
       ECHO_VALUE: 🚶Bitte geh'n Sie weiter, hier gibt es nichts zu sehn. 🕺
     canary:
-      enabled: false
+      enabled: true
