@@ -4,11 +4,11 @@
 
 Setup uses:
 
-* [**K8s Kind**](https://kind.sigs.k8s.io) as local Kubernetes environment
-* [**FluxCD**](https://fluxcd.io) and a **GitHub** repository for managing the cluster
-* [**Linkerd**](https://linkerd.io) service mesh for traffic management and observability
-* [**Flagger**](https://flagger.app) for reliable releasing
-* [**Prometheus**](https://prometheus.io/) because there's no reason for not using it
+* [**K8s Kind**](https://github.com/kubernetes-sigs/kind) as local Kubernetes environment
+* [**FluxCD**](https://github.com/fluxcd/flux2) and a **GitHub** repository for managing the cluster
+* [**Linkerd**](https://github.com/linkerd) service mesh for traffic management and observability
+* [**Flagger**](https://github.com/fluxcd/flagger) for reliable releasing
+* [**Prometheus**](https://github.com/prometheus/prometheus) because there's no reason for not using it
 * [**hey**](https://github.com/rakyll/hey) to get some traffic
 * [**𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗**](https://github.com/heubeck/examiner) just another simple test app
 
@@ -143,7 +143,7 @@ Now all the components should be running and accessible.
 
 The following steps will demonstrate the example setup.
 
-### Look what we got
+### Look what we've got
 
 ```shell
 kubectl  get deployment -A
@@ -331,4 +331,4 @@ kind delete cluster
 
 ---
 
-Congratulations. You made it to the end. Happy watching to your automated deployments.
+Congratulations. You made it to the end. Enjoy watching your automated deployments.
