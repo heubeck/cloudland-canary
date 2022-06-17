@@ -95,11 +95,11 @@ It will last some minutes for the cluster components to become ready. You can ch
 kubectl get kustomization -A
 
 ### Output as soon as everything is ready:
-# NAMESPACE     NAME                     AGE   READY   STATUS
-# flux-system   apps                     81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
-# flux-system   flux-system              81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
-# flux-system   infrastructure-layer-1   81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
-# flux-system   infrastructure-layer-2   81m   True    Applied revision: main/e8a74df3894b8775b75340b485516ab2bd02c8e4
+# NAMESPACE     NAME                     AGE     READY   STATUS
+# flux-system   apps                     3m31s   True    Applied revision: main/71a913a6c2020e976917eecfc3267405a610410e
+# flux-system   flux-system              3m58s   True    Applied revision: main/71a913a6c2020e976917eecfc3267405a610410e
+# flux-system   infrastructure-layer-1   3m31s   True    Applied revision: main/71a913a6c2020e976917eecfc3267405a610410e
+# flux-system   infrastructure-layer-2   3m31s   True    Applied revision: main/71a913a6c2020e976917eecfc3267405a610410e
 ```
 
 ### Linkerd
@@ -283,7 +283,14 @@ hey -c 2 -q 2 -z 90s "http://localhost/examine?delay=100..500&status=500"
 
 ### Observe what happens
 
-See the error rates in the linkerd dashboard. (Ignore the error rate on the -primary deployment, as this is a side effect of our load-test setup)
+See the error rates in the linkerd dashboard. (Ignore the error rate on the -primary deployment, as this is a side effect of our load-test setup.)
+
+Have a look into the Flagger event notification for our deployment:
+
+```shell
+# stream logs of the pod where Flagger is configured to send all events about or canary resource to
+kubectl logs -f -n monitoring -l app.kubernetes.io/name=logger
+```
 
 ## Cleanup
 
