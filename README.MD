@@ -185,6 +185,21 @@ Explore the linkerd dashboard, look into the Grafana boards provided by linkerd.
 Modify the [examiner HelmRelease](cluster/apps/examiner.yaml) with some new configuration.
 Commit and push the change for triggering the deployment.
 
+```shell
+### Current pod(s) handles all the traffic
+# NAME                        READY   STATUS    RESTARTS   AGE
+# examiner-565c867bb4-j9b4j   2/2     Running   0          99m
+
+### Deployment increases revision, new pod(s) starts
+# NAME                        READY   STATUS            RESTARTS   AGE
+# examiner-565c867bb4-j9b4j   2/2     Running           0          99m
+# examiner-69c69c89bd-2kmb7   0/2     PodInitializing   0          2s
+
+### New pod(s) takes over all traffic immediately at the moment they're becoming READY
+# NAME                        READY   STATUS    RESTARTS   AGE
+# examiner-69c69c89bd-2kmb7   2/2     Running   0          60s
+```
+
 ## Cleanup
 
 ```shell
