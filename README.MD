@@ -218,6 +218,46 @@ spec:
 
 Commit and push the change for taking effect.
 
+### Flagger duplicates the deployment and its dependencies like ConfigMaps, secrets or HPA
+
+```shell
+### our placed deployment is inactive, the copy ("-primary) took over
+# NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+# examiner           0/0     0            0           115m
+# examiner-primary   1/1     1            1           3m56s
+
+### same with referenced ConfigMap
+# NAME               DATA   AGE
+# examiner           1      117m
+# examiner-primary   1      6m15s
+```
+
+### Flagger instructed Linkerd to route all traffic to its own copy of our deployment
+
+The following TrafficSplit resource is generated and configured by Flagger:
+
+```yaml
+apiVersion: split.smi-spec.io/v1alpha2
+kind: TrafficSplit
+metadata:
+  name: examiner
+  namespace: apps
+spec:
+  backends:
+  - service: examiner-canary
+    weight: "0"
+  - service: examiner-primary
+    weight: "100"
+  service: examiner
+```
+
+Explore the linkerd dashboard to see the effect.
+
+### First automated canary deployment
+
+Modify the [examiner HelmRelease](cluster/apps/examiner.yaml) again with some new ECHO_VALUE configuration.
+Commit and push the change.
+
 ## Cleanup
 
 ```shell
