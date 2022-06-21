@@ -16,19 +16,19 @@ Setup uses:
 
 To reproduce the example project please walk through the following steps:
 
-- [Fork and clone the example](#fork-and-clone-the-example)
-- [Local k8s kind cluster](#local-k8s-kind-cluster)
-- [Flux](#flux)
-- [Linkerd](#linkerd)
-- [hey](#hey)
+- [Fork and clone this example](#fork-and-clone-this-example)
+- [Create local k8s kind cluster](#create-local-k8s-kind-cluster)
+- [Setup Flux](#setup-flux)
+- [Setup Linkerd](#setup-linkerd)
+- [Install hey (or an alternative)](#install-hey-or-an-alternative)
 - [Access components](#access-components)
 
-### Fork and clone the example
+### Fork and clone this example
 
 Create a fork of this repository, clone it to your local machine and change into its directory.
 The following is expected to be executed within there.
 
-### Local k8s kind cluster
+### Create local k8s kind cluster
 
 [Install k8s kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) or use the Kubernetes distribution you prefer.
 
@@ -55,7 +55,7 @@ kind export kubeconfig --kubeconfig $HOME/.kube/config
 # Set kubectl context to "kind-kind"
 ```
 
-### Flux
+### Setup Flux
 
 [Install flux cli](https://fluxcd.io/docs/cmd/#install-using-bash) for bootstrapping FluxCD, the GitOps operator synchronizing the K8s manifests into your cluster.
 
@@ -109,14 +109,14 @@ kubectl get kustomization -A
 # flux-system   infrastructure-layer-2   3m31s   True    Applied revision: main/71a913a6c2020e976917eecfc3267405a610410e
 ```
 
-### Linkerd
+### Setup Linkerd
 
 The linkerd cli is not mandatory, but eases access to its dashboard and helps with troubleshooting.
 
 * [Install linkerd cli](https://linkerd.io/2.11/getting-started/#step-1-install-the-cli)
 * [Install linkerd smi extension](https://linkerd.io/2.11/tasks/linkerd-smi/)
 
-### hey
+### Install hey (or an alternative)
 
 [hey](https://github.com/rakyll/hey) is a simple but efficient load producer.
 
