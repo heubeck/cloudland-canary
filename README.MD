@@ -4,13 +4,13 @@
 
 Setup uses:
 
-* **K8s Kind** as local Kubernetes environment
-* **FluxCD** and a **GitHub** repository for managing the cluster
-* **Linkerd** service mesh for traffic management and observability
-* **Flagger** for reliable releasing
-* **Prometheus** because there's no reason for not using it
-* **hey** to get some traffic
-* **𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗** just another simple test app
+* [**K8s Kind**](https://kind.sigs.k8s.io) as local Kubernetes environment
+* [**FluxCD**](https://fluxcd.io) and a **GitHub** repository for managing the cluster
+* [**Linkerd**](https://linkerd.io) service mesh for traffic management and observability
+* [**Flagger**](https://flagger.app) for reliable releasing
+* [**Prometheus**](https://prometheus.io/) because there's no reason for not using it
+* [**hey**](https://github.com/rakyll/hey) to get some traffic
+* [**𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗**](https://github.com/heubeck/examiner) just another simple test app
 
 ## Setup
 
