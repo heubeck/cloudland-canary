@@ -4,24 +4,31 @@
 
 Setup uses:
 
-* **K8s Kind** as local Kubernetes environment
-* **FluxCD** and a **GitHub** repository for managing the cluster
-* **Linkerd** service mesh for traffic management and observibility
-* **Flagger** for reliable releasing
-* **Prometheus** because there's no reason for not using it
-* **hey** to get some traffic
-* **𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗** just another simple test app
+* [**K8s Kind**](https://kind.sigs.k8s.io) as local Kubernetes environment
+* [**FluxCD**](https://fluxcd.io) and a **GitHub** repository for managing the cluster
+* [**Linkerd**](https://linkerd.io) service mesh for traffic management and observability
+* [**Flagger**](https://flagger.app) for reliable releasing
+* [**Prometheus**](https://prometheus.io/) because there's no reason for not using it
+* [**hey**](https://github.com/rakyll/hey) to get some traffic
+* [**𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗**](https://github.com/heubeck/examiner) just another simple test app
 
 ## Setup
 
-To reproduce the example project please walk through the following steps
+To reproduce the example project please walk through the following steps:
 
-### Fork and clone the example
+- [Fork and clone this example](#fork-and-clone-this-example)
+- [Create local k8s kind cluster](#create-local-k8s-kind-cluster)
+- [Setup Flux](#setup-flux)
+- [Setup Linkerd](#setup-linkerd)
+- [Install hey (or an alternative)](#install-hey-or-an-alternative)
+- [Access components](#access-components)
+
+### Fork and clone this example
 
 Create a fork of this repository, clone it to your local machine and change into its directory.
 The following is expected to be executed within there.
 
-### Local k8s kind cluster
+### Create local k8s kind cluster
 
 [Install k8s kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) or use the Kubernetes distribution you prefer.
 
@@ -48,7 +55,7 @@ kind export kubeconfig --kubeconfig $HOME/.kube/config
 # Set kubectl context to "kind-kind"
 ```
 
-### Flux
+### Setup Flux
 
 [Install flux cli](https://fluxcd.io/docs/cmd/#install-using-bash) for bootstrapping FluxCD, the GitOps operator synchronizing the K8s manifests into your cluster.
 
@@ -102,18 +109,21 @@ kubectl get kustomization -A
 # flux-system   infrastructure-layer-2   3m31s   True    Applied revision: main/71a913a6c2020e976917eecfc3267405a610410e
 ```
 
-### Linkerd
+### Setup Linkerd
 
 The linkerd cli is not mandatory, but eases access to its dashboard and helps with troubleshooting.
 
 * [Install linkerd cli](https://linkerd.io/2.11/getting-started/#step-1-install-the-cli)
 * [Install linkerd smi extension](https://linkerd.io/2.11/tasks/linkerd-smi/)
 
-### hey
+### Install hey (or an alternative)
 
 [hey](https://github.com/rakyll/hey) is a simple but efficient load producer.
+Of course other http(s) load testing tools can also be used. See for example [here](https://github.com/denji/awesome-http-benchmark) for alternatives.
 
 ### Access components
+
+Now all the components should be running and accessible.
 
 * [Examiner](https://github.com/heubeck/examiner) - Bound to ingress: GET http://localhost/examine
 * Prometheus - Port forwarding: `kubectl port-forward -n monitoring svc/prometheus-operated 9090:9090`
