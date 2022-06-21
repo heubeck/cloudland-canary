@@ -14,7 +14,14 @@ Setup uses:
 
 ## Setup
 
-To reproduce the example project please walk through the following steps
+To reproduce the example project please walk through the following steps:
+
+- [Fork and clone the example](#fork-and-clone-the-example)
+- [Local k8s kind cluster](#local-k8s-kind-cluster)
+- [Flux](#flux)
+- [Linkerd](#linkerd)
+- [hey](#hey)
+- [Access components](#access-components)
 
 ### Fork and clone the example
 
