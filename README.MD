@@ -6,7 +6,7 @@ Setup uses:
 
 * **K8s Kind** as local Kubernetes environment
 * **FluxCD** and a **GitHub** repository for managing the cluster
-* **Linkerd** service mesh for traffic management and observibility
+* **Linkerd** service mesh for traffic management and observability
 * **Flagger** for reliable releasing
 * **Prometheus** because there's no reason for not using it
 * **hey** to get some traffic
