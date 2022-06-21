@@ -119,8 +119,11 @@ The linkerd cli is not mandatory, but eases access to its dashboard and helps wi
 ### Install hey (or an alternative)
 
 [hey](https://github.com/rakyll/hey) is a simple but efficient load producer.
+Of course other http(s) load testing tools can also be used. See for example [here](https://github.com/denji/awesome-http-benchmark) for alternatives.
 
 ### Access components
+
+Now all the components should be running and accessible.
 
 * [Examiner](https://github.com/heubeck/examiner) - Bound to ingress: GET http://localhost/examine
 * Prometheus - Port forwarding: `kubectl port-forward -n monitoring svc/prometheus-operated 9090:9090`
