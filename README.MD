@@ -2,7 +2,14 @@
 
 # Automated Canary Deployment Example
 
-Setup uses:
+***Table of contents:***
+
+1. [Setup](#setup) - Prerequisites to run this example
+2. [Overview](#overview) - How the example setup looks like
+3. [Walkthrough](#walkthrough) - Play around with the example
+4. [Cleanup](#cleanup) - Shutdown and remove it
+
+***Example setup uses:***
 
 * [**K8s Kind**](https://github.com/kubernetes-sigs/kind) as local Kubernetes environment
 * [**FluxCD**](https://github.com/fluxcd/flux2) and a **GitHub** repository for managing the cluster
