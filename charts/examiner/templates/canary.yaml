@@ -20,7 +20,7 @@ spec:
     name: {{ include "name" . }}
   {{- end }}
   # the maximum time in seconds for the canary deployment
-  # to make progress before it is rollback (default 600s)
+  # to make progress before it is rollback (default 600)
   progressDeadlineSeconds: 120
   service:
     # ClusterIP port number
@@ -28,15 +28,11 @@ spec:
     # container port number or name (optional)
     targetPort: http
   analysis:
-    webhooks:
-      - name: "Event Log"
-        type: event
-        url: http://logger.monitoring
     # schedule interval (default 60s)
     interval: 30s
     # canary increment step
     # percentage (0-100)
-    stepWeight: 5
+    stepWeight: 10
     # max traffic percentage routed to canary
     # percentage (0-100)
     maxWeight: 50
@@ -45,17 +41,23 @@ spec:
     # Linkerd Prometheus checks
     # max number of failed metric checks before rollback
     threshold: 5
+    # Prometheus metrics to be considered - https://docs.flagger.app/usage/metrics
     metrics:
     - name: request-success-rate
       # minimum req success rate (non 5xx responses)
       # percentage (0-100)
       thresholdRange:
         min: 99
-      interval: 1m
+      interval: 30s
     - name: request-duration
       # maximum req duration P99
       # milliseconds
       thresholdRange:
         max: 500
       interval: 30s
+    # Http endpoints to be called by flagger - https://docs.flagger.app/usage/webhooks
+    webhooks:
+      - name: "Event Log"
+        type: event
+        url: http://logger.monitoring
 {{- end -}}
