@@ -20,4 +20,4 @@ spec:
       SERVER_ERROR_RATE: 0
       REQUEST_DELAY: 100..250
     canary:
-      enabled: true
+      enabled: false
