@@ -6,4 +6,6 @@ metadata:
   labels:
     {{- include "labels" . | nindent 4 }}
 data:
-    {{- toYaml .Values.configuration | nindent 4 }}
+  {{- range $k, $v := .Values.configuration }}
+  {{ $k }}: {{ $v | quote }}
+  {{- end }}
