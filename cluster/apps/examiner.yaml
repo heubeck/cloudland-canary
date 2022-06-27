@@ -16,8 +16,8 @@ spec:
   interval: 1m
   values:
     configuration:
-      ECHO_VALUE: 🚶Bitte geh'n Sie weiter, hier gibt es nichts zu sehn. 🕺 BOOM!
-      SERVER_ERROR_RATE: 30
+      ECHO_VALUE: 🚶Bitte geh'n Sie weiter, hier gibt es nichts zu sehn. 🕺
+      SERVER_ERROR_RATE: 0
       REQUEST_DELAY: 100..250
     canary:
-      enabled: false
+      enabled: true
