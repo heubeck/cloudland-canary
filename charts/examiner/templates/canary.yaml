@@ -21,7 +21,7 @@ spec:
   {{- end }}
   # the maximum time in seconds for the canary deployment
   # to make progress before it is rollback (default 600)
-  progressDeadlineSeconds: 120
+  progressDeadlineSeconds: 90
   service:
     # ClusterIP port number
     port: {{ .Values.service.port }}
@@ -40,7 +40,7 @@ spec:
     stepWeightPromotion: 17
     # Linkerd Prometheus checks
     # max number of failed metric checks before rollback
-    threshold: 5
+    threshold: 2
     # Prometheus metrics to be considered - https://docs.flagger.app/usage/metrics
     metrics:
     - name: request-success-rate
