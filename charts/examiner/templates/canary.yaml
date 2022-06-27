@@ -37,7 +37,7 @@ spec:
     # percentage (0-100)
     maxWeight: 50
     # canary decrement step percenate
-    stepWeightPromotion: 15
+    stepWeightPromotion: 17
     # Linkerd Prometheus checks
     # max number of failed metric checks before rollback
     threshold: 5
