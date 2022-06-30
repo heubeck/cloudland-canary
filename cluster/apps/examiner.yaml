@@ -17,7 +17,7 @@ spec:
   values:
     configuration:
       ECHO_VALUE: 🚶Bitte geh'n Sie weiter, hier gibt es nichts zu sehn. 🕺
-      SERVER_ERROR_RATE: 0
+      SERVER_ERROR_RATE: 5
       REQUEST_DELAY: 100..250
     canary:
       enabled: false
