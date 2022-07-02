@@ -189,10 +189,11 @@ linkerd viz dashboard
 
 ### Let some requests flow
 
+The 𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗 will respond with a random delay between 100 and 250 milliseconds with the configured values in its [HelmRelase](cluster/apps/examiner.yaml).
+
 ```shell
 # GET requests: 5 concurrently (-c), with a quote limit of 5 op/s (-q) over the next 60 minutes (-z)
-# The 𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗 will respond with a random delay between 100 and 250 milliseconds for simulating some real processing
-hey -c 5 -q 5 -z 60m "http://localhost/examine?delay=100..250"
+hey -c 5 -q 5 -z 60m "http://localhost/examine"
 ```
 
 Explore the linkerd dashboard, look into the Grafana boards provided by linkerd.
@@ -284,23 +285,14 @@ Look at the linkerd dashboard:
 
 And the Grafana board: "Linkerd Namespace" for *apps*
 
-### Start another deployment
+### Start another (faulty) deployment
 
-Modify the [examiner HelmRelease](cluster/apps/examiner.yaml) again with some new ECHO_VALUE configuration.
+Modify the [𝕰𝖝𝖆𝖒𝖎𝖓𝖊𝖗 HelmRelease](cluster/apps/examiner.yaml) with a instruction causing some error rate like `SERVER_ERROR_RATE: 10`.
 Commit and push the change.
-
-### Produce some error rate
-
-After the deployment has started, produce some load that results in http 500s:
-
-```shell
-# Instruct the examiner to respond with http 500 over the next 4 minutes
-hey -c 2 -q 2 -z 4m "http://localhost/examine?delay=100..500&status=500"
-```
 
 ### Observe what happens
 
-See the error rates in the linkerd dashboard. (Ignore the error rate on the -primary deployment, as this is a side effect of our load-test setup.)
+See the error rates on our deployment in the linkerd dashboard.
 
 Have a look into the Flagger event notification for our deployment:
 
