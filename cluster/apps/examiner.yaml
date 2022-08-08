@@ -17,7 +17,7 @@ spec:
   values:
     configuration:
       ECHO_VALUE: ⛈ CloudLand! Get ready to rumble 🤘
-      SERVER_ERROR_RATE: 1
+      SERVER_ERROR_RATE: 0
       REQUEST_DELAY: 100..250
     canary:
       enabled: true
