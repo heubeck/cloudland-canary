@@ -17,7 +17,7 @@ spec:
   values:
     configuration:
       ECHO_VALUE: ⛈ NRW Rockx 🤘
-      SERVER_ERROR_RATE: 15
+      SERVER_ERROR_RATE: 0
       REQUEST_DELAY: 100..250
     canary:
-      enabled: false
+      enabled: true
