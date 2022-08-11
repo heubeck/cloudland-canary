@@ -16,7 +16,7 @@ spec:
   interval: 1m
   values:
     configuration:
-      ECHO_VALUE: ⛈ NRW Rockx 🤘
+      ECHO_VALUE: ⛈ NRW Rockx aber sowas von 🤘
       SERVER_ERROR_RATE: 0
       REQUEST_DELAY: 100..250
     canary:
