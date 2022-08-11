@@ -16,8 +16,8 @@ spec:
   interval: 1m
   values:
     configuration:
-      ECHO_VALUE: ⛈ CloudLand! Get ready to rumble 🤘
-      SERVER_ERROR_RATE: 0
+      ECHO_VALUE: ⛈ NRW Rockx 🤘
+      SERVER_ERROR_RATE: 15
       REQUEST_DELAY: 100..250
     canary:
       enabled: false
