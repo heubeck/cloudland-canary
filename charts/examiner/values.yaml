@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: quay.io/heubeck/examiner
   pullPolicy: IfNotPresent
-  tag: "1.6.4"
+  tag: "1.6.6"
 
 service:
   type: ClusterIP

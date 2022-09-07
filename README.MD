@@ -42,12 +42,12 @@ The following is expected to be executed within there.
 ```shell
 # Create new cluster and configure kubectl
 # depending on your system setup you may need to run the kind commands als privileged user or with `sudo`
-kind create cluster --config ./_kind/config.yaml --image=kindest/node:v1.24.0
+kind create cluster --config ./_kind/config.yaml --image=kindest/node:v1.25.0
 kind export kubeconfig --kubeconfig $HOME/.kube/config
 
 ### Output will be something like:
 # Creating cluster "kind" ...
-#  ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+#  ✓ Ensuring node image (kindest/node:v1.25.0) 🖼
 #  ✓ Preparing nodes 📦
 #  ✓ Writing configuration 📜
 #  ✓ Starting control-plane 🕹️
@@ -58,7 +58,8 @@ kind export kubeconfig --kubeconfig $HOME/.kube/config
 #
 # kubectl cluster-info --context kind-kind
 #
-# Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+# Have a nice day! 👋
+#
 # Set kubectl context to "kind-kind"
 ```
 
@@ -120,8 +121,8 @@ kubectl get kustomization -A
 
 The linkerd cli is not mandatory, but eases access to its dashboard and helps with troubleshooting.
 
-* [Install linkerd cli](https://linkerd.io/2.11/getting-started/#step-1-install-the-cli)
-* [Install linkerd smi extension](https://linkerd.io/2.11/tasks/linkerd-smi/)
+* [Install linkerd cli](https://linkerd.io/2.12/getting-started/#step-1-install-the-cli)
+* [Install linkerd smi extension](https://linkerd.io/2.12/tasks/linkerd-smi/)
 
 ### Install hey (or an alternative)
 
