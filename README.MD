@@ -42,12 +42,12 @@ The following is expected to be executed within there.
 ```shell
 # Create new cluster and configure kubectl
 # depending on your system setup you may need to run the kind commands als privileged user or with `sudo`
-kind create cluster --config ./_kind/config.yaml --image=kindest/node:v1.25.0
+kind create cluster --config ./_kind/config.yaml --image=kindest/node:v1.25.3
 kind export kubeconfig --kubeconfig $HOME/.kube/config
 
 ### Output will be something like:
 # Creating cluster "kind" ...
-#  ✓ Ensuring node image (kindest/node:v1.25.0) 🖼
+#  ✓ Ensuring node image (kindest/node:v1.25.3) 🖼
 #  ✓ Preparing nodes 📦
 #  ✓ Writing configuration 📜
 #  ✓ Starting control-plane 🕹️
